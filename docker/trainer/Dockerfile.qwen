@@ -1,0 +1,12 @@
+FROM ghcr.io/rk/lora-trainer/base:latest
+
+RUN pip3 install --no-cache-dir transformers>=4.37.0 qwen-vl-utils
+
+COPY scripts/entrypoint.sh /workspace/entrypoint.sh
+COPY scripts/preprocess.py /workspace/preprocess.py
+COPY scripts/train_qwen_image.py /workspace/train_qwen_image.py
+COPY scripts/upload_results.py /workspace/upload_results.py
+
+RUN chmod +x /workspace/entrypoint.sh
+
+ENTRYPOINT ["/workspace/entrypoint.sh"]

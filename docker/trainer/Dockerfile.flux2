@@ -1,0 +1,10 @@
+FROM ghcr.io/rk/lora-trainer/base:latest
+
+COPY scripts/entrypoint.sh /workspace/entrypoint.sh
+COPY scripts/preprocess.py /workspace/preprocess.py
+COPY scripts/train_flux2.py /workspace/train_flux2.py
+COPY scripts/upload_results.py /workspace/upload_results.py
+
+RUN chmod +x /workspace/entrypoint.sh
+
+ENTRYPOINT ["/workspace/entrypoint.sh"]

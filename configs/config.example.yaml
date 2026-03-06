@@ -1,0 +1,65 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+  read_timeout: 30s
+  write_timeout: 30s
+  shutdown_timeout: 15s
+
+database:
+  host: ${DATABASE_HOST:-localhost}
+  port: ${DATABASE_PORT:-5432}
+  user: ${DATABASE_USER:-lora}
+  password: ${DATABASE_PASSWORD:-lora}
+  dbname: ${DATABASE_DBNAME:-lora_trainer}
+  sslmode: disable
+  max_conns: 20
+
+redis:
+  addr: ${REDIS_ADDR:-localhost:6379}
+  password: ${REDIS_PASSWORD:-}
+  db: 0
+
+storage:
+  endpoint: ${STORAGE_ENDPOINT:-https://your-account-id.r2.cloudflarestorage.com}
+  region: ${STORAGE_REGION:-auto}
+  bucket: ${STORAGE_BUCKET:-lora-trainer}
+  access_key_id: ${STORAGE_ACCESS_KEY_ID}
+  secret_access_key: ${STORAGE_SECRET_ACCESS_KEY}
+  presign_duration: 1h
+
+providers:
+  preference:
+    - voltagepark
+    - runpod
+  voltagepark:
+    enabled: false
+    api_key: ${VOLTAGEPARK_API_KEY:-}
+    endpoint: ${VOLTAGEPARK_ENDPOINT:-https://api.voltagepark.com}
+  runpod:
+    enabled: false
+    api_key: ${RUNPOD_API_KEY:-}
+    endpoint: ${RUNPOD_ENDPOINT:-https://api.runpod.io}
+
+orchestrator:
+  workers: 2
+  poll_interval: 5s
+  provision_timeout: 10m
+  download_timeout: 10m
+  upload_timeout: 10m
+  max_retries: 2
+  warm_pool:
+    enabled: false
+    min_size: 0
+    max_size: 2
+    max_idle_time: 15m
+
+telemetry:
+  metrics_enabled: true
+  metrics_path: /metrics
+  tracing_enabled: false
+  otlp_endpoint: ""
+  service_name: lora-trainer
+
+auth:
+  api_keys:
+    - ${API_KEY:-dev-key-change-me}
